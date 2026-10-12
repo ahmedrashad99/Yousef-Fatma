@@ -106,7 +106,7 @@ export const wedding = {
               `alt` describes the photo for screen readers — keep it meaningful.
      ------------------------------------------------------------------------ */
   images: {
-    hero: "/public/images/Ezz.jpg",
+    hero: "/images/Ezz.jpg",
   },
 
   /* ------------------------------------------------------------------------
@@ -166,7 +166,7 @@ export const wedding = {
      ------------------------------------------------------------------------ */
   music: {
     enabled: true,
-    src: "/public/music/Ellila.mp3",
+    src: "/music/Ellila.mp3",
     volume: 0.6, // 0 = silent, 1 = full volume
     loop: true,
   },
