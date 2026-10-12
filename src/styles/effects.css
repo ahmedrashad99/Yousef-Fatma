@@ -1,0 +1,100 @@
+/* ==========================================================================
+   FALLING LEAVES — ambient background motion
+   Three nested movements make each leaf feel natural:
+     .leaf        falls from top to bottom (linear)
+     .leaf__sway  drifts left/right (ease-in-out, alternating)
+     .leaf__shape tumbles and flips in 3D
+   ========================================================================== */
+
+.falling-leaves {
+  position: fixed;
+  inset: 0;
+  z-index: 210; /* above everything, incl. the envelope — but never clickable */
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.leaf {
+  position: absolute;
+  top: 0;
+  left: var(--x);
+  width: var(--size);
+  height: var(--size);
+  opacity: 0;
+  will-change: transform;
+  animation: leaf-fall var(--fall) linear var(--delay) infinite;
+}
+
+.leaf__sway {
+  display: block;
+  width: 100%;
+  height: 100%;
+  animation: leaf-sway var(--sway) ease-in-out var(--delay) infinite alternate;
+}
+
+.leaf__shape {
+  width: 100%;
+  height: 100%;
+  stroke-width: 0.6;
+  transform: rotate(var(--tilt));
+  animation: leaf-spin var(--spin) ease-in-out var(--delay) infinite;
+}
+
+.leaf__vein {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.55);
+  stroke-width: 0.7;
+}
+
+/* Fade in at the top, fade out near the bottom */
+@keyframes leaf-fall {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -8vh, 0);
+  }
+  8% {
+    opacity: var(--opacity);
+  }
+  88% {
+    opacity: var(--opacity);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 108vh, 0);
+  }
+}
+
+@keyframes leaf-sway {
+  from {
+    transform: translateX(calc(var(--sway-x) * -1)) rotate(-12deg);
+  }
+  to {
+    transform: translateX(var(--sway-x)) rotate(12deg);
+  }
+}
+
+@keyframes leaf-spin {
+  0% {
+    transform: rotate(var(--tilt)) rotateY(0deg) rotateX(0deg);
+  }
+  50% {
+    transform: rotate(calc(var(--tilt) + 90deg)) rotateY(160deg) rotateX(30deg);
+  }
+  100% {
+    transform: rotate(calc(var(--tilt) + 180deg)) rotateY(360deg) rotateX(0deg);
+  }
+}
+
+/* Fewer leaves on phones — calmer and lighter */
+@media (max-width: 600px) {
+  .leaf--extra {
+    display: none;
+  }
+}
+
+/* Guests who prefer less motion get a still page */
+@media (prefers-reduced-motion: reduce) {
+  .falling-leaves {
+    display: none;
+  }
+}

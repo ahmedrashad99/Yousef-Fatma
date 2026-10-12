@@ -1,0 +1,283 @@
+/* ==========================================================================
+   GLOBAL STYLES — colours, fonts, base elements, buttons, animations.
+   To re-theme the invitation, change the values in :root below.
+   ========================================================================== */
+
+:root {
+  /* Palette — Ivory & Champagne */
+  --ivory: #f8f5ef;
+  --cream: #efe7da;
+  --gold: #c5a46d;
+  --gold-deep: #9c7b45; /* darker gold for small text on light backgrounds (contrast) */
+  --gold-soft: rgba(197, 164, 109, 0.45);
+  --brown: #3a3029;
+  --taupe: #8d8174;
+  --taupe-text: #6f6458; /* slightly darker taupe for readable body text */
+  --white: #ffffff;
+
+  /* Type */
+  --font-serif: "Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* Rhythm */
+  --gutter: clamp(20px, 5vw, 48px);
+  --section-pad: clamp(80px, 12vw, 140px);
+  --shadow-soft: 0 24px 60px -30px rgba(58, 48, 41, 0.28);
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  overflow-x: hidden;
+  background: var(--ivory);
+  color: var(--brown);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+p,
+figure,
+ul {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--gold-soft);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold-deep);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.container--narrow {
+  max-width: 680px;
+}
+
+/* Small spaced capitals used for labels */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.divider {
+  width: 160px;
+  height: 16px;
+  margin: 0 auto;
+  color: var(--gold);
+}
+
+.sprig {
+  color: var(--gold);
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 30px;
+  border: 1px solid var(--gold);
+  border-radius: 0;
+  background: transparent;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s var(--ease),
+    transform 0.2s var(--ease);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn--outline {
+  color: var(--brown);
+}
+
+.btn--outline:hover {
+  background: var(--brown);
+  border-color: var(--brown);
+  color: var(--ivory);
+}
+
+.btn--solid {
+  width: 100%;
+  background: var(--brown);
+  border-color: var(--brown);
+  color: var(--ivory);
+}
+
+.btn--solid:hover:not(:disabled) {
+  background: var(--gold-deep);
+  border-color: var(--gold-deep);
+}
+
+.btn--solid:disabled {
+  opacity: 0.75;
+  cursor: progress;
+}
+
+.btn--text {
+  min-height: 44px;
+  border: 0;
+  border-bottom: 1px solid var(--gold);
+  padding: 0 2px;
+  color: var(--taupe-text);
+}
+
+.btn--text:hover {
+  color: var(--brown);
+}
+
+.btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   Motion — every animation is opt-in for users who don't mind motion.
+   -------------------------------------------------------------------------- */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes unveil {
+  from {
+    opacity: 0;
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Hero entrance, staggered — waits until the envelope is opened (.is-open) */
+  .enter {
+    opacity: 0;
+  }
+  .is-open .enter {
+    animation: fade-up 1.2s var(--ease) forwards;
+  }
+  .is-open .enter--1 { animation-delay: 0.2s; }
+  .is-open .enter--2 { animation-delay: 0.45s; }
+  .is-open .enter--3 { animation-delay: 0.8s; }
+  .is-open .enter--4 { animation-delay: 1.05s; }
+  .is-open .enter--5 { animation-delay: 1.6s; }
+  .is-open .enter--photo {
+    animation: unveil 1.6s var(--ease) 0.3s forwards;
+  }
+
+  /* Scroll reveals */
+  .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 1s var(--ease) var(--reveal-delay, 0ms), transform 1s var(--ease) var(--reveal-delay, 0ms);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
