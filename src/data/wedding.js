@@ -67,7 +67,7 @@ export const wedding = {
      ------------------------------------------------------------------------ */
   content: {
     preHeading: "Together with their families",
-    invitation: "Joyfully invite you to celebrate their wedding",
+    invitation: "Joyfully invite you to celebrate their Engagement",
 
     // One string per paragraph. Add or remove lines freely.
     // ✏️ Placeholder text — replace with the couple's real story.
